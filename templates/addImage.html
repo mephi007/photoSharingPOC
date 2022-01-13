@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Image</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <form action="{{ url_for('add_images') }}" method="post">
+        <textarea name="img_caption" rows="4"> Write Caption </textarea>
+        <input type="file" name="image" >
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
+    <br>
+    <br>
+    <form action="{{ url_for('update_image_details') }}" method="post">
+        <label for="img_id">Image Id:</label>
+        <input type="number" name="img_id" id="img_id">
+        <textarea name="img_caption" rows="4"> Write Caption </textarea>
+        <input type="submit" value="Update Image Caption" name="submit">
+    </form>
+    <br>
+    <br>
+    <form action="{{ url_for('delete_image') }}" method="post">
+        <label for="img_id_to_delete">Image Id:</label>
+        <input type="number" name="img_id" id="img_id_to_delete">
+        <input type="submit" value="Delete Image" name="submit">
+    </form>
+</body>
+</html>

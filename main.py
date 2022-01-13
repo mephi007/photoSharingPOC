@@ -3,7 +3,7 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import psycopg2
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -44,13 +44,14 @@ def connect_to_db():
 @app.route("/")
 def print_hi():
     # Use a breakpoint in the code line below to debug your script.
-    return "hello world"  # Press ⌘F8 to toggle the breakpoint.
+    return render_template('addImage.html')  # Press ⌘F8 to toggle the breakpoint.
 
 
-@app.route("/add_image")
+@app.route("/add_image", methods=['POST'])
 def add_images():
-    img_caption = "Inserting image"
-    image = "Images/Naruto1.jpeg"
+    img_caption = request.form.get('img_caption')
+    image = request.form.get('image')
+    print('{} and {}'.format(img_caption, image))
     db_connection()
     cur = conn.cursor()
     insert_query = '''
@@ -62,10 +63,10 @@ def add_images():
     return '{} inserted'.format(img_caption)
 
 
-@app.route("/update_image_detail")
+@app.route("/update_image_detail", methods=['Post'])
 def update_image_details():
-    img_caption = "Inserting Naruto Image"
-    img_id = 1
+    img_caption = request.form.get('img_caption')
+    img_id = request.form.get('img_id')
     db_connection()
     cur = conn.cursor()
     update_query = '''
@@ -77,9 +78,9 @@ def update_image_details():
     return '{} updated with {}'.format(img_id, img_caption)
 
 
-@app.route("/delete_image")
+@app.route("/delete_image", methods=['Post'])
 def delete_image():
-    img_id = 2
+    img_id = request.form.get('img_id')
     db_connection()
     cur = conn.cursor()
     delete_query = '''
